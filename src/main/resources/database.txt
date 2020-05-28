@@ -1,0 +1,22 @@
+create table users(
+	username varchar(50) not null primary key,
+	password varchar(50) not null,
+	enabled boolean not null
+);
+
+create table authorities (
+	username varchar(50) not null,
+	authority varchar(50) not null,
+	constraint fk_authorities_users foreign key(username) references users(username)
+);
+create unique index ix_auth_username on authorities (username,authority);
+
+INSERT INTO `course-api`.`users` (`username`,`password`,`enabled`)
+VALUES ("admin","pass", true);
+INSERT INTO `course-api`.`users` (`username`,`password`,`enabled`)
+VALUES ("user","pass", true);
+
+INSERT INTO `course-api`.`authorities`(`username`,`authority`)
+VALUES("user","USER");
+INSERT INTO `course-api`.`authorities`(`username`,`authority`)
+VALUES("admin","ADMIN");
